@@ -116,3 +116,54 @@ export const signupdoc = async (req, res) => {
     }
 }
 
+
+// TODO CHANGE PASSWORD
+export const changePassword = async (req, res) => {
+    try {
+        const user = await User.Doctor(req.user.id);
+        if (!user) {
+            return res.status(401).json("no user with that Account");
+        }
+
+        const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
+        const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
+
+        originalPassword !== req.body.oldPassword &&
+        res.status(401).json("Wrong password or username!");
+
+        const ciphertext = CryptoJS.AES.encrypt(req.body.newPassword, process.env.SECRET_KEY).toString();
+        const userUpdate = await User.findByIdAndUpdate(req.user.id, { password: ciphertext }, { new: true });
+        res.status(200).json(userUpdate);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+
+// TODO RESET PASSWORD
+export const resetPassword = async (req, res) => {
+    try {
+        const user = await User.Doctor(req.user.id);
+        if (!user) {
+            return res.status(401).json("no user with that Account");
+        }
+
+        const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
+        const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
+
+        originalPassword !== req.body.oldPassword &&
+        res.status(401).json("Wrong password or username!");
+
+        //TODO SEND EMAIL TO USER FOR PASSWORD RESET
+        
+
+        const ciphertext = CryptoJS.AES.encrypt(req.body.newPassword, process.env.SECRET_KEY).toString();
+        const userUpdate = await User.findByIdAndUpdate(req.user.id, { password: ciphertext }, { new: true });
+        res.status(200).json(userUpdate);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+
+

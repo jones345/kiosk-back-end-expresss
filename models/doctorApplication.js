@@ -19,6 +19,7 @@ const doctorApplicationSChema = mongoose.Schema({
     maritalStatus:{type:String},
     profilePic:{data: Buffer,contentType: String},
     bio:{type:String},
+    status:{type:String,default:"pending"},
     password:{type:String,default:"Password@123"}
 
 })

@@ -4,6 +4,8 @@ import consults from '../models/consults.js'
 export const addConsult = async (req, res) => {
     const consultsm = req.body;
     const newConsults = new consults({...consultsm});
+
+    // TODO ENCRYPT DATA AND SAVE
     try {
         await newConsults.save();
         res.status(201).json(newConsults);
@@ -12,11 +14,10 @@ export const addConsult = async (req, res) => {
     }
 }
 
-
 //GET ALL CONSULTS
 export const getConsults = async (req, res) => {
     const query = req.query.new;
-
+// TODO DECRYPT DATA AND IF USER IS ADMIN
     try {
       const users = query
         ? await consults.find().sort({ _id: -1 }).limit(25)
@@ -33,6 +34,7 @@ export const getConsultByUserId = async (req, res) => {
     const query = req.query.new;
     const userId = req.params.userId;
 
+    // TODO CHECK IF IS DOCTOR || USER || ADMIN
     try {
       const users = query
         ? await consults.find({  userid:userId}).sort({ _id: -1 }).limit(25)
@@ -48,7 +50,7 @@ export const getConsultByUserId = async (req, res) => {
 export const getConsultByDocId = async (req, res) => {
     const query = req.query.new;
     const docId = req.params.docId;
-
+// TODO CHECK IF IS DOCTOR || USER || ADMIN
     try {
       const users = query
         ? await consults.find({  docid:docId}).sort({ _id: -1 }).limit(25)

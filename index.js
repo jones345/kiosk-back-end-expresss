@@ -9,7 +9,8 @@ import conversationRoutes from './routes/conversations.js';
 import consultsRoutes  from './routes/consult.js'
 import Apply from './routes/Apply.js';
 import Server from 'socket.io';
-var helmet = require('helmet')
+import session from'cookie-session';
+import helmet from 'helmet';
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,23 @@ app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use(helmet())
+
+// cookies session
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+app.use(session({
+    name: 'session',
+    keys: ['key1', 'key2'],
+    cookie: {
+        secure: true,
+        httpOnly: true,
+        domain: 'example.com',
+        path: 'foo/bar',
+        expires: expiryDate
+    }
+}))
+
+
+// routers
 app.use('/api/events', eventRoutes);
 app.use('/api/auth/user', userRoutes);
 app.use('/api/profile/users', usersRoutes);
@@ -30,8 +48,15 @@ app.get('/', (req, res) => {
     res.send('connected');
 });
 
+
+// Server Port
 const CONNECTION_URL = process.env.CONNECTION_URL;
 const PORT = process.env.PORT || 5000;
+
+
+//TODO remove socket.io since is peer-to-peer connection
+
+//connection to mongodb server
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
