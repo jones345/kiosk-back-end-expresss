@@ -1,6 +1,7 @@
 # KIOSK BACKEND API POINTS
 ## TESTING THE DOCTOR WEBAPP IS ON (https://kiosk-2fc4d.web.app/) will deploy on a daily or often as possible 
 ## will also deploy the backend on a testing server, but it will be on elastic bean for production 
+## project session is an Hour after that it log out the user only on doctor
 ## Getting started with the project
 *The backend uses mongodb as database  hence no need for database connection *
 ```
