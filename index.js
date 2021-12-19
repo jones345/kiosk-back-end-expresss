@@ -12,6 +12,8 @@ import Server from 'socket.io';
 import session from'cookie-session';
 import helmet from 'helmet';
 
+import compression from 'compression'
+
 const app = express();
 dotenv.config();
 
@@ -19,6 +21,8 @@ app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use(helmet())
+// compress all responses
+app.use(compression())
 
 // cookies session
 const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
