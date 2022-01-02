@@ -3,6 +3,8 @@ import ExprincesSchema from './Exprinces.js'
 import EducationSchema from './Education.js'
 import PaymenSchema from "./Payment.js";
 import PasswordHistory from "./PasswordHistory.js";
+import LocationSchema from "./Location.js";
+
 const DoctorSchema = mongoose.Schema({
     FirstName:{type:String},
     LastName:{type:String},
@@ -15,9 +17,6 @@ const DoctorSchema = mongoose.Schema({
     WorkPermit:{data: Buffer,contentType: String},
     phoneNumber:{type:String},
     gender:{type:String},
-    city:{type:String},
-    Country:{type:String},
-    address:{type:String},
     occupation:{type:String},
     ShouldResetPassword:{type:Boolean,default:true},
     maritalStatus:{type:String},
@@ -25,11 +24,16 @@ const DoctorSchema = mongoose.Schema({
     bio:{type:String},
     online:{type:Boolean,default:false},
     password:{type:String},
+    Nationality:{type:String},
     Exprince:[ExprincesSchema],
     //TODO PASSWORD HISTORY
     medicalType:{type:String},
     Education:[EducationSchema],
-    Location:{type:String},
+    longitude:{type:Number},
+    latitude:{type:Number},
+    Country:{type:String},
+    city:{type:String},
+    plot:{type:String},
     isAdmin:{type:Boolean,default:false},
     Payment:[PaymenSchema],
     Joined: {

@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 
 const EducationSchema = mongoose.Schema({
-    Company:{type:String},
+    School:{type:String},
     StartDate:{type:String},
     EndDate:{type:String},
+    major:{type:String}
 
 })
 

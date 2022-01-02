@@ -1,5 +1,6 @@
 import User from '../models/user.js';
 import Doctor from "../models/Doctor.js";
+import verify from "../controllers/verifyToken.js";
 
 export const getUsers = async (req, res) => {
     try {
@@ -61,14 +62,14 @@ export const getAllDoc = async (req, res) => {
 
     try {
       const users = query
-        ? await Doctor.find().sort({ _id: -1 }).limit(25)
+        ? await Doctor.find().sort({ _id: -1 }).limit(250)
         : await Doctor.find();
       res.status(200).json(users);
     } catch (err) {
       res.status(500).json(err);
     }
-
 }
+
 
 // GET DOCTOR STATUS
 export const updateStatus = async (req, res)=>{
