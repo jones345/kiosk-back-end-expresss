@@ -1,4 +1,5 @@
 import doctorApplication from "../models/doctorApplication.js";
+import Doctor from "../models/Doctor.js";
 import {transporter,email} from '../Helpers/Mail.js'
 
 export const apply =  async (req, res) => {
@@ -11,6 +12,22 @@ export const apply =  async (req, res) => {
     } catch (error) {
         res.status(409).json({message: error.message});
     }
+
+    // const newapplicaion = new Doctor({
+    //     FirstName: req.body.FirstName,
+    //     LastName:req.body.LastName,
+    //     DOB: req.body.DOB,
+    //     Email:req.body.Email,
+    //     occupation:req.body.occupation,
+    //     gender:req.body.gender,
+    //     bio:req.body.bio,
+    //     profilePic: req.body.profilePic,
+    //     NationalID:req.body.NationalID,
+    //     WorkPermit:req.body.WorkPermit,
+    //     phoneNumber:req.body.phoneNumber,
+    //     maritalStatus: req.body.maritalStatus,
+    //     Nationality:req.body.Nationality
+    // })
 }
 
 
